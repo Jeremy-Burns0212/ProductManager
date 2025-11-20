@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace ProductManager;
+﻿namespace ProductManager.Classes;
 
 /// <summary>
 /// Represents a single product 

@@ -28,19 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            lstProducts = new ListBox();
             SuspendLayout();
             // 
-            // ProductManager
+            // lstProducts
+            // 
+            lstProducts.FormattingEnabled = true;
+            lstProducts.Location = new Point(97, 61);
+            lstProducts.Name = "lstProducts";
+            lstProducts.Size = new Size(348, 254);
+            lstProducts.TabIndex = 0;
+            // 
+            // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Name = "ProductManager";
+            Controls.Add(lstProducts);
+            Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private ListBox lstProducts;
     }
 }

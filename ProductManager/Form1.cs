@@ -11,7 +11,13 @@ namespace ProductManager
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            List<Classes.Product> allProducts = ProductDb.GetAllProducts();
 
+            // Add each product to listbox
+            foreach (Classes.Product p in allProducts)
+            {
+                lstProducts.Items.Add(p);
+			}
 		}
     }
 }

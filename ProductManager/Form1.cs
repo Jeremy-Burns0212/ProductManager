@@ -1,3 +1,5 @@
+using Microsoft.Data.SqlClient;
+
 namespace ProductManager
 {
     public partial class Form1 : Form
@@ -9,7 +11,7 @@ namespace ProductManager
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-        }
+
+		}
     }
 }

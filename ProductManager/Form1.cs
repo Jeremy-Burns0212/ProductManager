@@ -35,7 +35,9 @@ namespace ProductManager
         {
             AddProductForm newProForm = new AddProductForm();
             newProForm.ShowDialog();
-        }
+
+            ReloadAllProducts(); // Refresh product list after adding new product
+		}
 
         private void btnDeleteProduct_Click(object sender, EventArgs e)
         {

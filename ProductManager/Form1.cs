@@ -17,7 +17,13 @@ namespace ProductManager
             foreach (Classes.Product p in allProducts)
             {
                 lstProducts.Items.Add(p);
-			}
+            }
+        }
+
+        private void btnOpenCreateForm_Click(object sender, EventArgs e)
+        {
+            AddProductForm newProForm = new AddProductForm();
+            newProForm.ShowDialog();
 		}
     }
 }

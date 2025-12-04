@@ -24,58 +24,74 @@ public static class ProductDb
 	/// </summary>
 	public static List<Product> GetAllProducts()
 	{
-		// Get db connection
-		SqlConnection con = GetConnection();
+		List<Product> products = new();
 
-		// Open connection
-		con.Open();
-
-		// Prepare SQL command
-		string query = """
-			SELECT Id, SalesPrice, Name 
-			FROM Products 
-			ORDER BY Name ASC
-			""";
-
-        SqlCommand selectCommand = new()
-        {
-            Connection = con,
-            CommandText = query
-        };
-
-        // Execute command on db
-		SqlDataReader reader = selectCommand.ExecuteReader();
-
-		// Store results
-		List<Product> allProducts = new();
-		while (reader.Read())
+		// Use using to ensure the connection is closed/disposed
+		using SqlConnection con = GetConnection();
+		using SqlCommand selcmd = con.CreateCommand();
 		{
-			Product p = new()
+			selcmd.CommandText = """
+				SELECT Id, SalesPrice, Name 
+				FROM Products 
+				ORDER BY Name ASC
+				""";
+
+			con.Open();
+
+			using SqlDataReader reader = selcmd.ExecuteReader();
+
+			while (reader.Read())
 			{
-				Name = reader["Name"].ToString(),
-				Id = Convert.ToInt32(reader["Id"]),
-				SalesPrice = Convert.ToDouble(reader["SalesPrice"])
-			};
-			// Make sure to add each product to the list so it gets returned
-			allProducts.Add(p);
+				Product p = new Product
+				{
+					Id = Convert.ToInt32(reader["Id"]),
+					SalesPrice = Convert.ToDouble(reader["SalesPrice"]),
+					Name = Convert.ToString(reader["Name"])
+				};
+				products.Add(p);
+			}
 		}
 
-		// Close connection
-		con.Close();
-
-		return allProducts;
-
-	} // Implemented
+		return products;
+	} // Work In Progress
 
 	public static void AddProduct(Product p)
 	{
-		throw new NotImplementedException();
-	}
+		if (p is null) throw new ArgumentNullException(nameof(p));
+
+		using SqlConnection con = GetConnection();
+		using SqlCommand insertCmd = con.CreateCommand();
+		insertCmd.CommandText = """
+			INSERT INTO Products (SalesPrice, Name) 
+			VALUES (@SalesPrice, @Name)
+			""";
+		insertCmd.Parameters.AddWithValue("@SalesPrice", p.SalesPrice);
+		insertCmd.Parameters.AddWithValue("@Name", p.Name);
+
+		con.Open();
+		insertCmd.ExecuteNonQuery();
+	} // Complete
 
 	public static void UpdateProduct(Product p) 
 	{
-		throw new NotImplementedException();
-	}
+		if (p is null) throw new ArgumentNullException(nameof(p));
+		if (p.Id <= 0) throw new ArgumentException("Product must have a valid Id to update.", nameof(p));
+
+		using SqlConnection con = GetConnection();
+		using SqlCommand updateCmd = con.CreateCommand();
+		updateCmd.CommandText = """
+			UPDATE Products
+			SET SalesPrice = @SalesPrice,
+				Name = @Name
+			WHERE Id = @Id
+			""";
+		updateCmd.Parameters.AddWithValue("@SalesPrice", p.SalesPrice);
+		updateCmd.Parameters.AddWithValue("@Name", p.Name);
+		updateCmd.Parameters.AddWithValue("@Id", p.Id);
+
+		con.Open();
+		updateCmd.ExecuteNonQuery();
+	} // Implemented
 
 	public static void DeleteProduct(Product p) 
 	{
@@ -84,6 +100,17 @@ public static class ProductDb
 
 	public static void DeleteProduct(int productId) 
 	{
-		throw new NotImplementedException();
-	}
+		if (productId <= 0) throw new ArgumentException("productId must be greater than zero", nameof(productId));
+
+		using SqlConnection con = GetConnection();
+		using SqlCommand deleteCmd = con.CreateCommand();
+		deleteCmd.CommandText = """
+			DELETE FROM Products
+			WHERE Id = @Id
+			""";
+		deleteCmd.Parameters.AddWithValue("@Id", productId);
+
+		con.Open();
+		deleteCmd.ExecuteNonQuery();
+	} // Implemented
 }

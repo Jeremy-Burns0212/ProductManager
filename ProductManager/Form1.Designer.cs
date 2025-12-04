@@ -29,21 +29,44 @@
         private void InitializeComponent()
         {
             lstProducts = new ListBox();
+            btnOpenCreateForm = new Button();
+            btnDeleteProduct = new Button();
             SuspendLayout();
             // 
             // lstProducts
             // 
             lstProducts.FormattingEnabled = true;
-            lstProducts.Location = new Point(97, 61);
+            lstProducts.Location = new Point(12, 168);
             lstProducts.Name = "lstProducts";
             lstProducts.Size = new Size(348, 254);
             lstProducts.TabIndex = 0;
+            // 
+            // btnOpenCreateForm
+            // 
+            btnOpenCreateForm.Location = new Point(12, 12);
+            btnOpenCreateForm.Name = "btnOpenCreateForm";
+            btnOpenCreateForm.Size = new Size(258, 105);
+            btnOpenCreateForm.TabIndex = 1;
+            btnOpenCreateForm.Text = "Open Create Product Form";
+            btnOpenCreateForm.UseVisualStyleBackColor = true;
+            btnOpenCreateForm.Click += btnOpenCreateForm_Click;
+            // 
+            // btnDeleteProduct
+            // 
+            btnDeleteProduct.Location = new Point(415, 168);
+            btnDeleteProduct.Name = "btnDeleteProduct";
+            btnDeleteProduct.Size = new Size(213, 105);
+            btnDeleteProduct.TabIndex = 2;
+            btnDeleteProduct.Text = "Delete Product";
+            btnDeleteProduct.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1202, 587);
+            Controls.Add(btnDeleteProduct);
+            Controls.Add(btnOpenCreateForm);
             Controls.Add(lstProducts);
             Name = "Form1";
             Text = "Form1";
@@ -54,5 +77,7 @@
         #endregion
 
         private ListBox lstProducts;
+        private Button btnOpenCreateForm;
+        private Button btnDeleteProduct;
     }
 }

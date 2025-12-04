@@ -57,8 +57,9 @@
             btnDeleteProduct.Name = "btnDeleteProduct";
             btnDeleteProduct.Size = new Size(213, 105);
             btnDeleteProduct.TabIndex = 2;
-            btnDeleteProduct.Text = "Delete Product";
+            btnDeleteProduct.Text = "Delete Selected Product";
             btnDeleteProduct.UseVisualStyleBackColor = true;
+            btnDeleteProduct.Click += btnDeleteProduct_Click;
             // 
             // Form1
             // 

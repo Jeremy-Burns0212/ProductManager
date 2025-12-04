@@ -24,6 +24,22 @@ namespace ProductManager
         {
             AddProductForm newProForm = new AddProductForm();
             newProForm.ShowDialog();
+        }
+
+        private void btnDeleteProduct_Click(object sender, EventArgs e)
+        {
+            // If no product is selected, tell user and return immediately
+            if (lstProducts.SelectedIndex < 0)
+            {
+                MessageBox.Show("Please select a product to delete.");
+                return;
+			}
+            
+            Classes.Product selectedProd = lstProducts.SelectedItem as Classes.Product;
+
+            ProductDb.DeleteProduct(selectedProd);
+
+            MessageBox.Show($"Product {selectedProd.Name} deleted.");
 		}
     }
 }

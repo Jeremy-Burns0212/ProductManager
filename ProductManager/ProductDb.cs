@@ -97,22 +97,28 @@ public static class ProductDb
 
 	public static void DeleteProduct(Product p) 
 	{
-		throw new NotImplementedException();
+		DeleteProduct(p.Id);
 	}
 
 	public static void DeleteProduct(int productId) 
 	{
-		if (productId <= 0) throw new ArgumentException("productId must be greater than zero", nameof(productId));
+		SqlConnection con = GetConnection();
 
-		using SqlConnection con = GetConnection();
-		using SqlCommand deleteCmd = con.CreateCommand();
-		deleteCmd.CommandText = """
-			DELETE FROM Products
-			WHERE Id = @Id
-			""";
-		deleteCmd.Parameters.AddWithValue("@Id", productId);
+		SqlCommand delCmd = new()
+		{
+			Connection = con,
+			CommandText = """
+				DELETE FROM Products
+				WHERE Id = @Id
+				"""
+		};
+		// using a parameterized query to prevent SQL injection attacks
+		delCmd.Parameters.AddWithValue("@Id", productId);
 
 		con.Open();
-		deleteCmd.ExecuteNonQuery();
-	} // Implemented
+
+		delCmd.ExecuteNonQuery();
+
+		con.Close();
+	}
 }

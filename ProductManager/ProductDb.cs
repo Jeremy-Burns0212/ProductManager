@@ -13,6 +13,8 @@ public static class ProductDb
 	/// Gets a connection object for the ProductManagerDb.
 	/// The connection needs to be opened and closed after it's used.
 	/// </summary>
+
+	// Raw string literal - https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string
 	public static SqlConnection GetConnection()
 	{
 		return new SqlConnection("Data Source=localhost;Initial Catalog=ProductManagerDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30");

@@ -1,6 +1,6 @@
 ﻿namespace ProductManager
 {
-    partial class Form1
+    partial class WelcomeForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             lstProducts = new ListBox();
-            btnOpenCreateForm = new Button();
+            btnUpdateProduct = new Button();
             btnDeleteProduct = new Button();
+            btnAddProduct = new Button();
             SuspendLayout();
             // 
             // lstProducts
@@ -41,36 +42,47 @@
             lstProducts.Size = new Size(348, 254);
             lstProducts.TabIndex = 0;
             // 
-            // btnOpenCreateForm
+            // btnUpdateProduct
             // 
-            btnOpenCreateForm.Location = new Point(12, 12);
-            btnOpenCreateForm.Name = "btnOpenCreateForm";
-            btnOpenCreateForm.Size = new Size(258, 105);
-            btnOpenCreateForm.TabIndex = 1;
-            btnOpenCreateForm.Text = "Open Create Product Form";
-            btnOpenCreateForm.UseVisualStyleBackColor = true;
-            btnOpenCreateForm.Click += btnOpenCreateForm_Click;
+            btnUpdateProduct.Location = new Point(399, 239);
+            btnUpdateProduct.Name = "btnUpdateProduct";
+            btnUpdateProduct.Size = new Size(258, 105);
+            btnUpdateProduct.TabIndex = 1;
+            btnUpdateProduct.Text = "Update Selected Product";
+            btnUpdateProduct.UseVisualStyleBackColor = true;
+            btnUpdateProduct.Click += btnUpdateProduct_Click;
             // 
             // btnDeleteProduct
             // 
-            btnDeleteProduct.Location = new Point(415, 168);
+            btnDeleteProduct.Location = new Point(399, 106);
             btnDeleteProduct.Name = "btnDeleteProduct";
-            btnDeleteProduct.Size = new Size(213, 105);
+            btnDeleteProduct.Size = new Size(258, 105);
             btnDeleteProduct.TabIndex = 2;
             btnDeleteProduct.Text = "Delete Selected Product";
             btnDeleteProduct.UseVisualStyleBackColor = true;
             btnDeleteProduct.Click += btnDeleteProduct_Click;
             // 
-            // Form1
+            // btnAddProduct
+            // 
+            btnAddProduct.Location = new Point(399, 368);
+            btnAddProduct.Name = "btnAddProduct";
+            btnAddProduct.Size = new Size(258, 105);
+            btnAddProduct.TabIndex = 3;
+            btnAddProduct.Text = "Add New Product";
+            btnAddProduct.UseVisualStyleBackColor = true;
+            btnAddProduct.Click += btnAddProduct_Click;
+            // 
+            // WelcomeForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1202, 587);
+            ClientSize = new Size(669, 587);
+            Controls.Add(btnAddProduct);
             Controls.Add(btnDeleteProduct);
-            Controls.Add(btnOpenCreateForm);
+            Controls.Add(btnUpdateProduct);
             Controls.Add(lstProducts);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "WelcomeForm";
+            Text = "Welcome Form";
             Load += Form1_Load;
             ResumeLayout(false);
         }
@@ -78,7 +90,8 @@
         #endregion
 
         private ListBox lstProducts;
-        private Button btnOpenCreateForm;
+        private Button btnUpdateProduct;
         private Button btnDeleteProduct;
+        private Button btnAddProduct;
     }
 }

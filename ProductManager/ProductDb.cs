@@ -93,25 +93,36 @@ public static class ProductDb
 		con.Close();
 	} // Implemented
 
+	/// <summary>
+	/// Updates an existing product in the database by its Id. All fields are updated except the Id.
+	/// </summary>
+	/// <param name="p">The product to be updated</param>
+	/// <exception cref="SqlException">Throws if db is not available</exception>
 	public static void UpdateProduct(Product p) 
 	{
-		if (p is null) throw new ArgumentNullException(nameof(p));
-		if (p.Id <= 0) throw new ArgumentException("Product must have a valid Id to update.", nameof(p));
+		SqlConnection con = GetConnection();
 
-		using SqlConnection con = GetConnection();
-		using SqlCommand updateCmd = con.CreateCommand();
-		updateCmd.CommandText = """
+		SqlCommand updateCmd = new()
+		{
+			Connection = con,
+			CommandText = """
 			UPDATE Products
 			SET SalesPrice = @SalesPrice,
-				Name = @Name
+			Name = @Name
 			WHERE Id = @Id
-			""";
+			"""
+		};
+
+		// using a parameterized query to prevent SQL injection attacks
 		updateCmd.Parameters.AddWithValue("@SalesPrice", p.SalesPrice);
 		updateCmd.Parameters.AddWithValue("@Name", p.Name);
 		updateCmd.Parameters.AddWithValue("@Id", p.Id);
 
 		con.Open();
-		updateCmd.ExecuteNonQuery();
+
+		int rows = updateCmd.ExecuteNonQuery();
+
+		con.Close();
 	} // WIP
 
 	public static void DeleteProduct(Product p) 

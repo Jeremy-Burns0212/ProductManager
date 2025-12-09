@@ -89,6 +89,7 @@
             Controls.Add(lblPrice);
             Name = "AddProductForm";
             Text = "AddProductForm";
+            Load += AddProductForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

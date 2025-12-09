@@ -60,22 +60,38 @@ public static class ProductDb
 		return products;
 	} // Work In Progress
 
+	/// <summary>
+	/// Adds a new product to the database.
+	/// </summary>
+	/// <param name="p">The product to be added</param>
+	/// <exception cref="SqlException">Throws if db is not available</exception>
 	public static void AddProduct(Product p)
 	{
-		if (p is null) throw new ArgumentNullException(nameof(p));
+		SqlConnection con = GetConnection();
 
-		using SqlConnection con = GetConnection();
-		using SqlCommand insertCmd = con.CreateCommand();
-		insertCmd.CommandText = """
-			INSERT INTO Products (SalesPrice, Name) 
-			VALUES (@SalesPrice, @Name)
-			""";
+		SqlCommand insertCmd = new()
+		{
+			Connection = con,
+			// Skip the Id column as it's an identity column
+			CommandText = """
+				INSERT INTO Products (SalesPrice, Name)
+				VALUES (@SalesPrice, @Name)
+				"""
+		};
+
+		// Add parameters to prevent SQL injection attacks
 		insertCmd.Parameters.AddWithValue("@SalesPrice", p.SalesPrice);
 		insertCmd.Parameters.AddWithValue("@Name", p.Name);
 
+		// open the connection
 		con.Open();
-		insertCmd.ExecuteNonQuery();
-	} // Complete
+
+		// execute the insert command
+		int rows = insertCmd.ExecuteNonQuery();
+
+		// close the connection
+		con.Close();
+	} // Implemented
 
 	public static void UpdateProduct(Product p) 
 	{
@@ -96,12 +112,12 @@ public static class ProductDb
 
 		con.Open();
 		updateCmd.ExecuteNonQuery();
-	} // Implemented
+	} // WIP
 
 	public static void DeleteProduct(Product p) 
 	{
 		DeleteProduct(p.Id);
-	}
+	} // Implemented
 
 	/// <summary>
 	/// Deletes a product from the database by its Id.
@@ -128,5 +144,5 @@ public static class ProductDb
 		delCmd.ExecuteNonQuery();
 
 		con.Close();
-	}
+	} // Implemented
 }

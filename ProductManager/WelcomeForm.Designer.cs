@@ -83,7 +83,7 @@
             Controls.Add(lstProducts);
             Name = "WelcomeForm";
             Text = "Welcome Form";
-            Load += Form1_Load;
+            Load += WelcomeForm_Load;
             ResumeLayout(false);
         }
 

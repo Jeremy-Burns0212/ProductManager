@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblProductName = new Label();
+            lblProductName = new Label();
             lblSalesPrice = new Label();
             txtProductName = new TextBox();
             txtSalesPrice = new TextBox();
@@ -37,12 +37,12 @@
             // 
             // lblProductName
             // 
-            this.lblProductName.AutoSize = true;
-            this.lblProductName.Location = new Point(21, 54);
-            this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new Size(126, 25);
-            this.lblProductName.TabIndex = 0;
-            this.lblProductName.Text = "Product Name";
+            lblProductName.AutoSize = true;
+            lblProductName.Location = new Point(21, 54);
+            lblProductName.Name = "lblProductName";
+            lblProductName.Size = new Size(126, 25);
+            lblProductName.TabIndex = 0;
+            lblProductName.Text = "Product Name";
             // 
             // lblSalesPrice
             // 
@@ -75,6 +75,7 @@
             btnAddProduct.TabIndex = 4;
             btnAddProduct.Text = "Add Product";
             btnAddProduct.UseVisualStyleBackColor = true;
+            btnAddProduct.Click += btnAddProduct_Click;
             // 
             // AddUpdateProductForm
             // 
@@ -85,7 +86,7 @@
             Controls.Add(txtSalesPrice);
             Controls.Add(txtProductName);
             Controls.Add(lblSalesPrice);
-            Controls.Add(this.lblProductName);
+            Controls.Add(lblProductName);
             Name = "AddUpdateProductForm";
             Text = "AddUpdateProductForm";
             ResumeLayout(false);

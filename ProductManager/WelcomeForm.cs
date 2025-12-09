@@ -9,7 +9,7 @@ namespace ProductManager
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void WelcomeForm_Load(object sender, EventArgs e)
         {
             ReloadAllProducts();
         }
@@ -33,18 +33,13 @@ namespace ProductManager
 
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
-            AddProductForm newProForm = new AddProductForm();
+            AddUpdateProductForm newProForm = new AddUpdateProductForm();
             newProForm.ShowDialog();
 
             ReloadAllProducts(); // Refresh product list after adding new product
         }
 
         private void btnDeleteProduct_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void btnAddProduct_Click(object sender, EventArgs e)
         {
 			// If no product is selected, tell user and return immediately
 			if (lstProducts.SelectedIndex < 0)
@@ -60,5 +55,17 @@ namespace ProductManager
 
 			MessageBox.Show($"Product {selectedProd.Name} deleted.");
 		}
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            AddUpdateProductForm addForm = new AddUpdateProductForm();
+            DialogResult result = addForm.ShowDialog();
+
+			// Only refresh if a new product was added
+			if (result == DialogResult.OK)
+            {
+                ReloadAllProducts(); 
+            }
+        }
     }
 }

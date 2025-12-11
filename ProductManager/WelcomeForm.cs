@@ -31,12 +31,18 @@ namespace ProductManager
             }
         }
 
-        private void btnUpdateProduct_Click(object sender, EventArgs e)
+        public void btnUpdateProduct_Click(object sender, EventArgs e)
         {
-            AddUpdateProductForm newProForm = new AddUpdateProductForm();
-            newProForm.ShowDialog();
+           if (lstProducts.SelectedIndex < 0)
+            {
+                MessageBox.Show("Please select a product to update.");
+                return;
+            }
 
-            ReloadAllProducts(); // Refresh product list after adding new product
+            Classes.Product? selectedProd = lstProducts.SelectedItem as Classes.Product;
+            AddUpdateProductForm updateForm = new(selectedProd);
+            updateForm.ShowDialog();
+            ReloadAllProducts();
         }
 
         private void btnDeleteProduct_Click(object sender, EventArgs e)
@@ -48,7 +54,7 @@ namespace ProductManager
 				return;
 			}
 
-			Classes.Product selectedProd = lstProducts.SelectedItem as Classes.Product;
+			Classes.Product? selectedProd = lstProducts.SelectedItem as Classes.Product;
 
 			ProductDb.DeleteProduct(selectedProd);
 			ReloadAllProducts(); // Refresh product list
@@ -58,7 +64,7 @@ namespace ProductManager
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            AddUpdateProductForm addForm = new AddUpdateProductForm();
+            AddUpdateProductForm addForm = new();
             DialogResult result = addForm.ShowDialog();
 
 			// Only refresh if a new product was added

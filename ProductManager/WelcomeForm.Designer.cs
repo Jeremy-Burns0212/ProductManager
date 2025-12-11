@@ -41,6 +41,7 @@
             lstProducts.Name = "lstProducts";
             lstProducts.Size = new Size(348, 254);
             lstProducts.TabIndex = 0;
+            lstProducts.SelectedIndexChanged += lstProducts_SelectedIndexChanged;
             // 
             // btnUpdateProduct
             // 

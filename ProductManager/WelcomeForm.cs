@@ -33,7 +33,7 @@ namespace ProductManager
 
         public void btnUpdateProduct_Click(object sender, EventArgs e)
         {
-           if (lstProducts.SelectedIndex < 0)
+            if (lstProducts.SelectedIndex < 0)
             {
                 MessageBox.Show("Please select a product to update.");
                 return;
@@ -47,31 +47,36 @@ namespace ProductManager
 
         private void btnDeleteProduct_Click(object sender, EventArgs e)
         {
-			// If no product is selected, tell user and return immediately
-			if (lstProducts.SelectedIndex < 0)
-			{
-				MessageBox.Show("Please select a product to delete.");
-				return;
-			}
+            // If no product is selected, tell user and return immediately
+            if (lstProducts.SelectedIndex < 0)
+            {
+                MessageBox.Show("Please select a product to delete.");
+                return;
+            }
 
-			Classes.Product? selectedProd = lstProducts.SelectedItem as Classes.Product;
+            Classes.Product? selectedProd = lstProducts.SelectedItem as Classes.Product;
 
-			ProductDb.DeleteProduct(selectedProd);
-			ReloadAllProducts(); // Refresh product list
+            ProductDb.DeleteProduct(selectedProd);
+            ReloadAllProducts(); // Refresh product list
 
-			MessageBox.Show($"Product {selectedProd.Name} deleted.");
-		}
+            MessageBox.Show($"Product {selectedProd.Name} deleted.");
+        }
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
             AddUpdateProductForm addForm = new();
             DialogResult result = addForm.ShowDialog();
 
-			// Only refresh if a new product was added
-			if (result == DialogResult.OK)
+            // Only refresh if a new product was added
+            if (result == DialogResult.OK)
             {
-                ReloadAllProducts(); 
+                ReloadAllProducts();
             }
+        }
+
+        private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
